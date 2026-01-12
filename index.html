@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Professional ATM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="atm-container">
+        <div class="atm-screen">
+            <h2 id="display-msg">Insert PIN</h2>
+            <div id="screen-content">
+                <input type="password" id="pin-display" placeholder="****" readonly>
+                <p id="status-text">Select User: 
+                    <select id="user-selector">
+                        <option value="Ritesh Alone">Ritesh Alone</option>
+                        <option value="Purushottam alone">Purushottam alone</option>
+                    </select>
+                </p>
+            </div>
+            
+            <div id="menu" style="display:none;">
+                <p id="balance-text"></p>
+                <button class="action-btn" onclick="withdraw()">Withdraw $500</button>
+                <button class="action-btn" onclick="location.reload()">Exit</button>
+            </div>
+        </div>
+
+        <div class="keypad">
+            <div class="grid">
+                <button onclick="press('1')">1</button><button onclick="press('2')">2</button><button onclick="press('3')">3</button>
+                <button onclick="press('4')">4</button><button onclick="press('5')">5</button><button onclick="press('6')">6</button>
+                <button onclick="press('7')">7</button><button onclick="press('8')">8</button><button onclick="press('9')">9</button>
+                <button class="clear" onclick="clearPin()">CLR</button>
+                <button onclick="press('0')">0</button>
+                <button class="enter" onclick="validatePin()">OK</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
