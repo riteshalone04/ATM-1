@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- IMPORTANT FOR MOBILE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>ATM Machine</title>
 
     <style>
@@ -10,7 +13,7 @@
             padding: 0;
             font-family: Arial, sans-serif;
             background: url("atm-bg.jpg") no-repeat center center/cover;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,18 +22,18 @@
         /* Designer Title */
         .designer-title {
             position: absolute;
-            top: 15px;
+            top: 10px;
             width: 100%;
             text-align: center;
-            font-size: 26px;
+            font-size: 20px;
             font-weight: bold;
             color: white;
             text-shadow: 2px 2px 6px black;
-            letter-spacing: 1px;
         }
 
         .atm {
-            width: 380px;
+            width: 90%;
+            max-width: 380px;
             background: rgba(0, 0, 0, 0.75);
             color: white;
             padding: 20px;
@@ -40,16 +43,22 @@
         }
 
         .atm img {
-            width: 120px;
+            width: 100px;
+            max-width: 40%;
             margin-bottom: 10px;
         }
 
         h2 {
             margin: 10px 0;
+            font-size: 20px;
+        }
+
+        h3 {
+            font-size: 18px;
         }
 
         input {
-            width: 90%;
+            width: 95%;
             padding: 10px;
             margin: 8px 0;
             border-radius: 8px;
@@ -58,8 +67,8 @@
         }
 
         button {
-            width: 90%;
-            padding: 10px;
+            width: 95%;
+            padding: 12px;
             margin: 8px 0;
             border: none;
             border-radius: 8px;
@@ -86,15 +95,29 @@
         }
 
         .balance {
-            font-size: 18px;
+            font-size: 17px;
             margin-top: 10px;
+        }
+
+        /* EXTRA SMALL DEVICES */
+        @media (max-width: 400px) {
+            .designer-title {
+                font-size: 18px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            button, input {
+                font-size: 15px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<!-- Designer Name -->
 <div class="designer-title">
     Designer : Ritesh Alone
 </div>
@@ -121,14 +144,14 @@
         <button onclick="logout()">Exit</button>
     </div>
 
-    <!-- AMOUNT INPUT -->
+    <!-- AMOUNT -->
     <div id="amountSection" class="hidden">
-        <input type="number" id="amount" placeholder="Enter Amount in ₹">
+        <input type="number" id="amount" placeholder="Enter Amount (₹)">
         <button onclick="deposit()">Deposit</button>
         <button onclick="withdraw()">Withdraw</button>
     </div>
 
-    <!-- BALANCE DISPLAY -->
+    <!-- BALANCE -->
     <div id="balance" class="hidden balance"></div>
 
 </div>
