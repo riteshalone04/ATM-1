@@ -1,44 +1,61 @@
-const accounts = {
-    "Ritesh Alone": { pin: "2006", balance: 10000 },
-    "Purushottam alone": { pin: "1972", balance: 15000 }
+const users = {
+    "Ritesh Alone": { pin: "2006", balance: 100000 },
+    "Purushottam alone": { pin: "1972", balance: 500000 }
 };
 
-let inputPin = "";
+let currentUser = "";
+let currentPin = "";
 
-function press(num) {
-    if (inputPin.length < 4) {
-        inputPin += num;
-        document.getElementById('pin-display').value = "*".repeat(inputPin.length);
+function press(n) {
+    if (currentPin.length < 4) {
+        currentPin += n;
+        document.getElementById('pin-display').value = "*".repeat(currentPin.length);
     }
 }
 
 function clearPin() {
-    inputPin = "";
+    currentPin = "";
     document.getElementById('pin-display').value = "";
 }
 
 function validatePin() {
-    const selectedUser = document.getElementById('user-selector').value;
-    const user = accounts[selectedUser];
-
-    if (inputPin === user.pin) {
-        document.getElementById('display-msg').innerText = "Access Granted";
-        document.getElementById('screen-content').style.display = "none";
-        document.getElementById('menu').style.display = "block";
-        document.getElementById('balance-text').innerText = "Balance: $" + user.balance;
+    const selected = document.getElementById('user-selector').value;
+    if (currentPin === users[selected].pin) {
+        currentUser = selected;
+        document.getElementById('login-section').style.display = "none";
+        document.getElementById('main-menu').style.display = "block";
+        document.getElementById('display-msg').innerText = "Welcome, " + currentUser;
     } else {
-        alert("Incorrect PIN!");
+        alert("Wrong PIN!");
         clearPin();
     }
 }
 
-function withdraw() {
-    const selectedUser = document.getElementById('user-selector').value;
-    if (accounts[selectedUser].balance >= 500) {
-        accounts[selectedUser].balance -= 500;
-        document.getElementById('balance-text').innerText = "Balance: $" + accounts[selectedUser].balance;
-        alert("Please collect your $500 cash!");
+function showBalance() {
+    alert("Current Balance: ₹" + users[currentUser].balance.toLocaleString('en-IN'));
+}
+
+function showInput(type) {
+    document.getElementById('main-menu').style.display = "none";
+    document.getElementById('transaction-area').style.display = "block";
+    document.getElementById('trans-label').innerText = "Enter " + type + " amount:";
+    document.getElementById('confirm-btn').onclick = () => process(type);
+}
+
+function process(type) {
+    const val = parseInt(document.getElementById('amount-input').value);
+    if (!val || val <= 0) return;
+
+    if (type === 'withdraw' && val > users[currentUser].balance) {
+        alert("Insufficient balance!");
     } else {
-        alert("Insufficient Funds!");
+        users[currentUser].balance += (type === 'deposit' ? val : -val);
+        alert("Success! Current Balance: ₹" + users[currentUser].balance.toLocaleString('en-IN'));
+        backToMenu();
     }
+}
+
+function backToMenu() {
+    document.getElementById('transaction-area').style.display = "none";
+    document.getElementById('main-menu').style.display = "block";
 }
