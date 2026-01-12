@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- IMPORTANT FOR MOBILE -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>ATM Machine</title>
 
     <style>
@@ -12,14 +10,13 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background: url("photo-1611605862651-c91b8778ce01.jfif") no-repeat center center/cover;
+            background: url("atm-bg.jpg") no-repeat center center/cover;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Designer Title */
         .designer-title {
             position: absolute;
             top: 10px;
@@ -44,7 +41,6 @@
 
         .atm img {
             width: 100px;
-            max-width: 40%;
             margin-bottom: 10px;
         }
 
@@ -53,13 +49,9 @@
             font-size: 20px;
         }
 
-        h3 {
-            font-size: 18px;
-        }
-
-        input {
+        select, input {
             width: 95%;
-            padding: 10px;
+            padding: 12px;
             margin: 8px 0;
             border-radius: 8px;
             border: none;
@@ -98,21 +90,6 @@
             font-size: 17px;
             margin-top: 10px;
         }
-
-        /* EXTRA SMALL DEVICES */
-        @media (max-width: 400px) {
-            .designer-title {
-                font-size: 18px;
-            }
-
-            h2 {
-                font-size: 18px;
-            }
-
-            button, input {
-                font-size: 15px;
-            }
-        }
     </style>
 </head>
 
@@ -125,12 +102,16 @@
 <div class="atm">
 
     <img src="sbi-logo.png" alt="State Bank of India">
-
     <h2>State Bank Of India</h2>
 
     <!-- LOGIN -->
     <div id="login">
-        <input type="text" id="name" placeholder="Account Holder Name">
+        <select id="name">
+            <option value="">-- Select Account Holder --</option>
+            <option value="Ritesh Alone">Ritesh Alone</option>
+            <option value="Purushottam Alone">Purushottam Alone</option>
+        </select>
+
         <input type="password" id="pin" placeholder="Enter PIN">
         <button onclick="login()">Login</button>
     </div>
@@ -168,13 +149,18 @@
         let name = document.getElementById("name").value;
         let pin = document.getElementById("pin").value;
 
+        if (name === "") {
+            alert("Please select account holder name");
+            return;
+        }
+
         if (accounts[name] && accounts[name].pin === pin) {
             currentUser = name;
             document.getElementById("login").classList.add("hidden");
             document.getElementById("menu").classList.remove("hidden");
             document.getElementById("user").innerText = name;
         } else {
-            alert("Invalid Account Holder Name or PIN");
+            alert("Invalid PIN");
         }
     }
 
